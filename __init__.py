@@ -1,11 +1,11 @@
-import random, os, xml.etree.ElementTree as ET
-from aqt import mw
+##Warning: Use it as your own risk
+import random, os, xml.etree.ElementTree as ET 
+from aqt import mw 
 from aqt.qt import QTimer, QLabel, QPixmap, Qt, QPainter, QGuiApplication
-from aqt.utils import tooltip
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl
 
-CHANCE = 1 / 2
+CHANCE = 1 / 10000
 FPS = 20
 ADDON_PATH = os.path.dirname(__file__)
 IMAGE_PATH = os.path.join(ADDON_PATH, "foxy.png")
@@ -16,7 +16,6 @@ player = None
 audio_output = None
 frames = []
 
-tooltip("Loaded")
 
 def load_frames():
     global frames
