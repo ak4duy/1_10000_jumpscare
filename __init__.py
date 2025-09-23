@@ -6,7 +6,7 @@ from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl
 
 config = mw.addonManager.getConfig(__name__)
-CHANCE = 1 / 2
+CHANCE = 1 / 10000
 FPS = 20
 VOLUME_SET = float(config.get("volume", 100))
 ADDON_PATH = os.path.dirname(__file__)
