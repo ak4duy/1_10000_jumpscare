@@ -1,0 +1,1 @@
+![Screenshots: ](anki_addon_showcase.png)
