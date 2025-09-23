@@ -1,0 +1,7 @@
+{
+  "volume": 1.0,
+  "help":{
+    "volume": "E.g: 0.8 = 80%",
+    "volume_note" : "change if only restart anki"
+  }
+}

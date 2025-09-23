@@ -5,8 +5,10 @@ from aqt.qt import QTimer, QLabel, QPixmap, Qt, QPainter, QGuiApplication
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl
 
-CHANCE = 1 / 10000
+config = mw.addonManager.getConfig(__name__)
+CHANCE = 1 / 2
 FPS = 20
+VOLUME_SET = float(config.get("volume", 100))
 ADDON_PATH = os.path.dirname(__file__)
 IMAGE_PATH = os.path.join(ADDON_PATH, "foxy.png")
 XML_PATH = os.path.join(ADDON_PATH, "foxy.xml")
@@ -64,7 +66,7 @@ def play_jumpscare():
         audio_output = QAudioOutput()
         player.setAudioOutput(audio_output)
         player.setSource(QUrl.fromLocalFile(SOUND_PATH))
-        audio_output.setVolume(100)
+        audio_output.setVolume(VOLUME_SET)
         player.play()
     except Exception as e:
         print("Sound error:", e)
