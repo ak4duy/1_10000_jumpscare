@@ -2,7 +2,7 @@
 import random, os, xml.etree.ElementTree as ET 
 from aqt import mw 
 from aqt.qt import QTimer, QLabel, QPixmap, Qt, QPainter, QGuiApplication
-from aqt.qt import QMediaPlayer, QAudioOutput
+from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl
 
 config = mw.addonManager.getConfig(__name__)
