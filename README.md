@@ -1,6 +1,6 @@
 # 1 in 10000 chance of Foxy jumpscare per second
-[![Discord](https://img.shields.io/badge/akaduy69420-%235865F2.svg?&logo=discord&logoColor=white)](#)
-![Github](https://img.shields.io/badge/lilyud420-black?logo=github&logoColor=white&link=https%3A%2F%2Fgithub.com%2Flilyud420%2F1_10000_jumpscare)
+[![Discord](https://img.shields.io/badge/akaduy69420-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.com/users/799965541283528714)
+[![Github](https://img.shields.io/badge/lilyud420-black?style=flat&logo=github&logoColor=white)](https://github.com/lilyud420/1_10000_jumpscare)
 
 ## Overview:
 
