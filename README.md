@@ -3,7 +3,7 @@
 
 ## Overview:
 
-This is an add-on that make your study *thrilling*.
+This is an add-on that make your study **thrilling**.
 
 Every second, there is a 1 in 10000 chance that Foxy will randomly jumpscare you
 
@@ -18,4 +18,4 @@ Volume: 1.0, e.g 0.8 = 80%
 
 Make sure you're at latest version (Anki 2.1.50+) Please use it at your own risk
 
-Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by *YMY* from TmodLoader.
+Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY** from TmodLoader.
