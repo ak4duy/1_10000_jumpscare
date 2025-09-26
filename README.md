@@ -21,4 +21,12 @@ Make sure you're at **latest version** (Anki 2.1.50+)
 
 Please use it at your own risk
 
+The add-on only works if you're focused on the main **Anki window**
+
 Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY** from TmodLoader.
+
+## Changelog:
+
+* v1.0.1: Now the add-on only works if you’re focused on the main Anki window
+
+* v1.0.0: Release
