@@ -94,9 +94,11 @@ def play_jumpscare():
 
 
 def check_random():
+    if not mw.isActiveWindow():
+        return
+    
     if random.random() < CHANCE:
         play_jumpscare()
-
 
 timer = QTimer(mw)
 timer.timeout.connect(check_random)
