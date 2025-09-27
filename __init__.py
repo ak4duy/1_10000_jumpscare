@@ -102,4 +102,4 @@ def check_random():
 
 timer = QTimer(mw)
 timer.timeout.connect(check_random)
-timer.start(5000)
+timer.start(1000)
