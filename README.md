@@ -27,6 +27,8 @@ Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY**
 
 ## Changelog:
 
+* v1.0.2: Modified from 5 seconds to 1 seconds (my bad)
+
 * v1.0.1: Now the add-on only works if you’re focused on the main Anki window
 
 * v1.0.0: Release
