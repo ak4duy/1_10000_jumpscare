@@ -15,17 +15,21 @@ Every second, there is a 1 in 10000 chance that Foxy will randomly jumpscare you
 
 Volume: 1.0, e.g 0.8 = 80%
 
+Jumpscare count(er): 0
+
 ## Notes:
 
 Make sure you're at **latest version** (Anki 2.1.50+) 
 
-Please use it at your own risk
+The add-on only works if you're focused on the **main Anki window**
 
-The add-on only works if you're focused on the main **Anki window**
+Please use it at your own risk
 
 Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY** from TmodLoader.
 
 ## Changelog:
+
+* v1.0.3: Configuration UI, volume set, jumpscare counter
 
 * v1.0.2: Modified from 5 seconds to 1 seconds (my bad)
 
