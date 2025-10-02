@@ -3,12 +3,19 @@ import random, os, xml.etree.ElementTree as ET
 from aqt import mw
 from aqt.qt import (
     QTimer, QLabel, QPixmap, Qt, QPainter, QUrl,
-    QVBoxLayout, QDialog, QDialogButtonBox, QDoubleSpinBox
+    QVBoxLayout, QDialog, QDialogButtonBox, QLineEdit, QDoubleSpinBox
 )
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+from fractions import Fraction
 
-config = mw.addonManager.getConfig(__name__)
-CHANCE = 1 / 10000
+cfg = mw.addonManager.getConfig(__name__)
+chance_raw = cfg.get("chance", "1/10000")
+
+try:
+    CHANCE = float(Fraction(str(chance_raw).replace(" ", "")))
+except Exception:
+    CHANCE = 1/10000
+
 FPS = 20
 ADDON_PATH = os.path.dirname(__file__)
 IMAGE_PATH = os.path.join(ADDON_PATH, "foxy.png")
@@ -99,13 +106,20 @@ def check_random():
     if not mw.isActiveWindow():
         return
 
-    if random.random() < CHANCE:
+    cfg = mw.addonManager.getConfig(__name__)
+    chance_raw = cfg.get("chance", "1/10000")
+    try:
+        chance_value = float(Fraction(str(chance_raw).replace(" ", "")))
+    except Exception:
+        chance_value = 1 / 10000
+
+    if random.random() < chance_value:
         play_jumpscare()
 
 
 timer = QTimer(mw)
 timer.timeout.connect(check_random)
-timer.start(5000)
+timer.start(1000)
 
 
 def on_config_button():
@@ -123,6 +137,11 @@ def on_config_button():
     layout.addWidget(QLabel("Volume (0.0 = mute, 1.0 = max)"))
     layout.addWidget(volume_box)
 
+    chance_edit = QLineEdit()
+    chance_edit.setText(str(cfg.get("chance", "1/10000")))
+    layout.addWidget(QLabel("Chance per second (e.g. 0.0001 or 1/10000)"))
+    layout.addWidget(chance_edit)
+
     count_label = QLabel()
     def refresh_count():
         cfg = mw.addonManager.getConfig(__name__)
@@ -136,6 +155,14 @@ def on_config_button():
     def save_and_close():
         cfg = mw.addonManager.getConfig(__name__)
         cfg["volume"] = float(volume_box.value())
+
+        try:
+            text = chance_edit.text().strip()
+            chance_value = float(Fraction(text))
+            cfg["chance"] = chance_value
+        except Exception:
+            cfg["chance"] = 1 / 10000
+
         mw.addonManager.writeConfig(__name__, cfg)
         dlg.accept()
 
