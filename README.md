@@ -13,19 +13,18 @@ Every second, there is a 1 in 10000 chance that Foxy will randomly jumpscare you
 
 ## Configurations:
 
-Volume: 1.0 (e.g. 0.8 = 80%)
+Volume: **0.5** (e.g. 0.8 = 80%)
+(**WARNING**: This audio is really loud)
 
-Chance per second: 1 / 10000 (e.g. 0.0001 or 1 / 10000)
+Chance per second: **1 / 10000** (e.g. 0.0001 or 1 / 10000)
 
-Jumpscare count(er): 0
+Jumpscare count(er): **0**
 
 ## Notes:
 
 Make sure you're at **latest version** (Anki 2.1.50+) 
 
 The add-on only works if you're focused on the **main Anki window**
-
-Do not set the **CHANCE** value too high, it may break Anki 
 
 Please use it at your own risk
 
