@@ -2,8 +2,17 @@
 import random, os, xml.etree.ElementTree as ET
 from aqt import mw
 from aqt.qt import (
-    QTimer, QLabel, QPixmap, Qt, QPainter, QUrl,
-    QVBoxLayout, QDialog, QDialogButtonBox, QLineEdit, QDoubleSpinBox
+    QTimer,
+    QLabel,
+    QPixmap,
+    Qt,
+    QPainter,
+    QUrl,
+    QVBoxLayout,
+    QDialog,
+    QDialogButtonBox,
+    QLineEdit,
+    QDoubleSpinBox,
 )
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from fractions import Fraction
@@ -14,7 +23,7 @@ chance_raw = cfg.get("chance", "1/10000")
 try:
     CHANCE = float(Fraction(str(chance_raw).replace(" ", "")))
 except Exception:
-    CHANCE = 1/10000
+    CHANCE = 1 / 10000
 
 FPS = 20
 ADDON_PATH = os.path.dirname(__file__)
@@ -24,6 +33,7 @@ SOUND_PATH = os.path.join(ADDON_PATH, "jumpscare.mp3")
 
 player = None
 audio_output = None
+is_playing = False
 frames = []
 
 
@@ -56,6 +66,11 @@ def load_frames():
 
 def play_jumpscare():
     global player, audio_output
+    global is_playing
+    if is_playing:
+        return
+    is_playing = True
+
     if not frames:
         load_frames()
         cfg = mw.addonManager.getConfig(__name__)
@@ -72,31 +87,42 @@ def play_jumpscare():
     label.show()
 
     try:
-        player = QMediaPlayer()
-        audio_output = QAudioOutput()
+        player = QMediaPlayer(mw)
+        audio_output = QAudioOutput(mw)
         player.setAudioOutput(audio_output)
         player.setSource(QUrl.fromLocalFile(SOUND_PATH))
         cfg = mw.addonManager.getConfig(__name__)
-        audio_output.setVolume(float(cfg.get("volume", 1)))
+        audio_output.setVolume(float(cfg.get("volume", 0.5)))
         player.play()
     except Exception as e:
         print("Sound error:", e)
+        player = None
 
     frame_index = {"i": 0}
 
     def next_frame():
+        global is_playing
+        if not label or label.isHidden():
+            anim_timer.stop()
+            is_playing = False
+            return
+
         if frame_index["i"] < len(frames):
             f = frames[frame_index["i"]]
-            label.setPixmap(f.scaled(
-                mw.size(),
-                Qt.AspectRatioMode.IgnoreAspectRatio,
-                Qt.TransformationMode.SmoothTransformation
-            ))
+            label.setPixmap(
+                f.scaled(
+                    mw.size(),
+                    Qt.AspectRatioMode.IgnoreAspectRatio,
+                    Qt.TransformationMode.SmoothTransformation,
+                )
+            )
             frame_index["i"] += 1
         else:
+            anim_timer.stop()
             label.close()
+            is_playing = False
 
-    anim_timer = QTimer(mw)
+    anim_timer = QTimer(label)
     anim_timer.timeout.connect(next_frame)
     anim_timer.start(1000 // FPS)
     next_frame()
@@ -133,7 +159,7 @@ def on_config_button():
     volume_box.setRange(0.0, 1.0)
     volume_box.setSingleStep(0.1)
     volume_box.setDecimals(2)
-    volume_box.setValue(float(cfg.get("volume", 1.0)))
+    volume_box.setValue(float(cfg.get("volume", 0.5)))
     layout.addWidget(QLabel("Volume (0.0 = mute, 1.0 = max)"))
     layout.addWidget(volume_box)
 
@@ -143,13 +169,17 @@ def on_config_button():
     layout.addWidget(chance_edit)
 
     count_label = QLabel()
+
     def refresh_count():
         cfg = mw.addonManager.getConfig(__name__)
         count_label.setText(f"Total Foxy Jumpscares: {cfg.get('jumpscare_count', 0)}")
+
     refresh_count()
     layout.addWidget(count_label)
 
-    buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+    buttons = QDialogButtonBox(
+        QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
+    )
     layout.addWidget(buttons)
 
     def save_and_close():
