@@ -1,7 +1,7 @@
 # 1 in 10000 chance of Foxy jumpscare per second
 [![Discord](https://img.shields.io/badge/akaduy69420-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.com/users/799965541283528714)
 [![Github](https://img.shields.io/badge/lilyud420-black?style=flat&logo=github&logoColor=white)](https://github.com/lilyud420/1_10000_jumpscare)
-[![Ko-fi](https://img.shields.io/badge/Buy%20me%20a%20coffee!-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/akaduy)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee!-ffdd00?&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/akaduy)
 ## Overview:
 
 This is an add-on that make your study **thrilling**.
@@ -42,4 +42,4 @@ Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY**
 
 * v1.0.0: Release
 
-### [Support me through ko-fi!❤️](https://ko-fi.com/akaduy)
+### [Support me through buymeacoffee!❤️](https://buymeacoffee.com/akaduy)
