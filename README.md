@@ -1,6 +1,5 @@
 # 1 in 10000 chance of Foxy jumpscare per second
-[![Discord](https://img.shields.io/badge/akaduy69420-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.com/users/799965541283528714)
-[![Github](https://img.shields.io/badge/lilyud420-black?style=flat&logo=github&logoColor=white)](https://github.com/lilyud420/1_10000_jumpscare)
+[![Github](https://img.shields.io/badge/ak4duy-black?style=flat&logo=github&logoColor=white)](https://github.com/ak4duy/1_10000_jumpscare)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee!-ffdd00?&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/akaduy)
 ## Overview:
 
