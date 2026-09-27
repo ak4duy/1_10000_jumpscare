@@ -1,38 +1,36 @@
-## Warning: Use it as your own risk
-import random, os, xml.etree.ElementTree as ET
-from aqt import mw
-from aqt.qt import (
-    QTimer,
-    QLabel,
-    QPixmap,
-    Qt,
-    QPainter,
-    QUrl,
-    QVBoxLayout,
-    QDialog,
-    QDialogButtonBox,
-    QLineEdit,
-    QDoubleSpinBox,
-)
-from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
+## Warning: Use at your own risk
+import os
+import random
+import xml.etree.ElementTree as ET
 from fractions import Fraction
 
-cfg = mw.addonManager.getConfig(__name__)
-chance_raw = cfg.get("chance", "1/10000")
-
-try:
-    CHANCE = float(Fraction(str(chance_raw).replace(" ", "")))
-except Exception:
-    CHANCE = 1 / 10000
+from aqt import mw
+from aqt.qt import (
+    QDialog,
+    QDialogButtonBox,
+    QDoubleSpinBox,
+    QLabel,
+    QLineEdit,
+    QPainter,
+    QPixmap,
+    Qt,
+    QTimer,
+    QUrl,
+    QVBoxLayout,
+)
+from PyQt6.QtMultimedia import QSoundEffect
 
 FPS = 20
 ADDON_PATH = os.path.dirname(__file__)
 IMAGE_PATH = os.path.join(ADDON_PATH, "foxy.png")
 XML_PATH = os.path.join(ADDON_PATH, "foxy.xml")
-SOUND_PATH = os.path.join(ADDON_PATH, "jumpscare.mp3")
+SOUND_PATH = os.path.join(ADDON_PATH, "jumpscare.wav")
 
-player = None
-audio_output = None
+sound_effect = QSoundEffect(mw)
+sound_effect.setSource(QUrl.fromLocalFile(SOUND_PATH))
+
+cfg = mw.addonManager.getConfig(__name__)
+sound_effect.setVolume(float(cfg.get("volume", 0.5)))
 is_playing = False
 frames = []
 
@@ -46,10 +44,16 @@ def load_frames():
     root = tree.getroot()
 
     for sub in root.findall("SubTexture"):
-        x, y = int(sub.get("x")), int(sub.get("y"))
-        w, h = int(sub.get("width")), int(sub.get("height"))
-        fx, fy = int(sub.get("frameX", 0)), int(sub.get("frameY", 0))
-        fw, fh = int(sub.get("frameWidth", w)), int(sub.get("frameHeight", h))
+        x = int(sub.get("x"))
+        y = int(sub.get("y"))
+        w = int(sub.get("width"))
+        h = int(sub.get("height"))
+
+        fx = int(sub.get("frameX", 0))
+        fy = int(sub.get("frameY", 0))
+
+        fw = int(sub.get("frameWidth", w))
+        fh = int(sub.get("frameHeight", h))
 
         subimg = sheet.copy(x, y, w, h)
 
@@ -57,26 +61,26 @@ def load_frames():
         frame.fill(Qt.GlobalColor.transparent)
 
         painter = QPainter(frame)
-
         painter.drawPixmap(-fx, -fy, subimg)
         painter.end()
 
         frames.append(frame)
 
-
 def play_jumpscare():
-    global player, audio_output
     global is_playing
     if is_playing:
         return
     is_playing = True
-
     if not frames:
         load_frames()
-        cfg = mw.addonManager.getConfig(__name__)
-        count = int(cfg.get("jumpscare_count", 0)) + 1
-        cfg["jumpscare_count"] = count
-        mw.addonManager.writeConfig(__name__, cfg)
+    cfg = mw.addonManager.getConfig(__name__)
+    count = int(cfg.get("jumpscare_count", 0)) + 1
+    cfg["jumpscare_count"] = count
+    mw.addonManager.writeConfig(__name__, cfg)
+    
+    sound_effect.setVolume(float(cfg.get("volume", 0.5)))
+    sound_effect.stop()
+    sound_effect.play()
 
     label = QLabel(mw)
     label.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -85,37 +89,19 @@ def play_jumpscare():
     label.setGeometry(mw.rect())
     label.setScaledContents(True)
     label.show()
-
-    try:
-        player = QMediaPlayer(mw)
-        audio_output = QAudioOutput(mw)
-        player.setAudioOutput(audio_output)
-        player.setSource(QUrl.fromLocalFile(SOUND_PATH))
-        cfg = mw.addonManager.getConfig(__name__)
-        audio_output.setVolume(float(cfg.get("volume", 0.5)))
-        player.play()
-    except Exception as e:
-        print("Sound error:", e)
-        player = None
+    label.raise_()
 
     frame_index = {"i": 0}
 
     def next_frame():
         global is_playing
-        if not label or label.isHidden():
+        if label.isHidden():
             anim_timer.stop()
             is_playing = False
             return
 
         if frame_index["i"] < len(frames):
-            f = frames[frame_index["i"]]
-            label.setPixmap(
-                f.scaled(
-                    mw.size(),
-                    Qt.AspectRatioMode.IgnoreAspectRatio,
-                    Qt.TransformationMode.SmoothTransformation,
-                )
-            )
+            label.setPixmap(frames[frame_index["i"]])
             frame_index["i"] += 1
         else:
             anim_timer.stop()
@@ -185,10 +171,10 @@ def on_config_button():
     def save_and_close():
         cfg = mw.addonManager.getConfig(__name__)
         cfg["volume"] = float(volume_box.value())
-
+        sound_effect.setVolume(cfg["volume"])
         try:
             text = chance_edit.text().strip()
-            chance_value = float(Fraction(text))
+            chance_value = float(Fraction(text.replace(" ", "")))
             cfg["chance"] = chance_value
         except Exception:
             cfg["chance"] = 1 / 10000
