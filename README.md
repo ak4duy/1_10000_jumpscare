@@ -19,17 +19,29 @@ Chance per second: **1 / 10000** (e.g. 0.0001 or 1 / 10000)
 
 Jumpscare count(er): **0**
 
-## Notes:
+## Disclaimers:
+
+### Asset disclaimer
+Foxy, images, sounds, and other assets belong to their respective copyright holders.
+
+### Health warning
+This add-on contains sudden loud audio and unexpected jumpscare visuals. It may not be suitable for some people.
+
+Use this add-on at your own risk. I'm not responsible for injury, damage, distress, or other adverse effects resulting from its use.
+
+If jumpscares or sudden loud sounds may pose a health risk to you, please do not use this add-on.
+
+# Notes:
 
 Make sure you're at **latest version** (Anki 2.1.50+) 
 
 The add-on only works if you're focused on the **main Anki window**
 
-Please use it at your own risk
-
 Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY** from TmodLoader.
 
 ## Changelog:
+
+* v1.0.5: Fix audio latency & jumpscare counter
 
 * v1.0.4: Added chance per second configuration
 
