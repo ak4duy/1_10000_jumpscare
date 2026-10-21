@@ -18,7 +18,7 @@ from aqt.qt import (
     QUrl,
     QVBoxLayout,
 )
-from PyQt6.QtMultimedia import QSoundEffect
+from PyQt6.QtMultimedia import QMediaDevices, QSoundEffect
 
 FPS = 20
 ADDON_PATH = os.path.dirname(__file__)
@@ -79,6 +79,7 @@ def play_jumpscare():
     mw.addonManager.writeConfig(__name__, cfg)
     
     sound_effect.setVolume(float(cfg.get("volume", 0.5)))
+    sound_effect.setAudioDevice(QMediaDevices.defaultAudioOutput())
     sound_effect.stop()
     sound_effect.play()
 

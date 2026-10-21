@@ -41,6 +41,8 @@ Inspired by "1/10000 Chance for Withered Foxy Jumpscare Every Second" by **YMY**
 
 ## Changelog:
 
+* v1.0.6: Fix audio playing on the wrong output device after switching (e.g. headphones)
+
 * v1.0.5: Fix audio latency & jumpscare counter
 
 * v1.0.4: Added chance per second configuration
